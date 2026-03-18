@@ -11,6 +11,8 @@ const routes = createBrowserRouter (
 		, { path: "/home", element: <pages.Home/> }
 		, { path: "/about", element: <pages.About/> }
 		, { path: "/contact", element: <pages.Contact/> }
+		, { path: "/user/:userid", element: <pages.User/> }
+		, { path: "/github", element: <pages.Github/>, loader: {githubInfoLoader} }
 	]
 );
 */
@@ -25,6 +27,8 @@ const routes = createBrowserRouter (
 			{ path: "", element: <pages.Home/> }
 			, { path: "about", element: <pages.About/> }
 			, { path: "contact", element: <pages.Contact/> }
+			, { path: "user/:userid", element: <pages.User/> }
+			, { path: "github", element: <pages.Github/>, loader: {githubInfoLoader} }
 		]
 	}]
 );
