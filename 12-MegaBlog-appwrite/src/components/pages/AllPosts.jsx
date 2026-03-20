@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DatabaseService } from "../../services"
 import { Container } from "../layouts";
-import { MyCard } from "../atoms/MyCard";
+import { MyCard } from "../atoms";
 
 export default function AllPosts() {
 	const [posts, setPosts] = useState ([]);

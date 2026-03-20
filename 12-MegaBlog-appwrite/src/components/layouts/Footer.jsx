@@ -3,7 +3,7 @@ import { MyLogo } from "../atoms";
 
 export default function Footer() {
 	return (
-<footer className="fixed inset-x-0 bottom-0 bg-neutral-primary-soft mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+<footer className="bottom-0 bg-neutral-primary-soft mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
 	<div className="md:flex md:justify-between">
 		<div className="mb-6 md:mb-0">
 			<Link to="/" className="nav-link">

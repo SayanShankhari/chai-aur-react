@@ -1,5 +1,5 @@
-import { Container } from "../layouts/Container";
-import { PostForm } from "../tools/PostForm";
+import { Container } from "../layouts";
+import { PostForm } from "../forms";
 
 export default function AddPost() {
 	return (

@@ -5,7 +5,6 @@ import './App.css'
 import { account, ID } from "./lib/appwrite";
 import AuthenticationService from "./lib/appwrite/AuthenticationService";
 import DatabaseService from "./lib/appwrite/DatabaseService";
-import articles from "./conf/articles";
 import { useDispatch } from "react-redux";
 // import { login, logout } from "./store/authSlice";
 // import { Home, Loading } from "./components/pages";
@@ -53,9 +52,7 @@ function App() {
 */
 
 	return (
-		<RouterProvider router={routes}>
-
-		</RouterProvider>
+		<RouterProvider router={routes} />
 	);
 
 /*

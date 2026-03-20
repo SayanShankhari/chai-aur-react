@@ -26,12 +26,11 @@ const MyInput = (
 
 export default function MyInput (
 	{
-		label
+		label=""
 		, type = "text"
 		, styles = ""
 		, ...props
-	}
-	, reference
+	} , reference
 ) {
 	const id = useId();
 

@@ -10,15 +10,15 @@ const authSlice = createSlice (	// slice: modular abstraction over reducers
 		name: "Auth"
 		, initialState: init_state
 		, reducers: {	// reducers: state generator low level functions
-			register: (state, action) => {
+			store_signup: (state, action) => {
 				state.status = false;
 				state.user_data = action.payload.user_data;
 			}
-			, login: (state, action) => {
+			, store_signin: (state, action) => {
 				state.status = true;
 				state.user_data = action.payload.user_data;
 			}
-			, logout (state, action) {
+			, store_signout (state, action) {
 				state.status = false;
 				state.user_data = null;
 			}
@@ -27,7 +27,7 @@ const authSlice = createSlice (	// slice: modular abstraction over reducers
 );
 
 // Named exports for actions (optional, but common)
-export const { register, login, logout } = authSlice.actions; // list of reducer functions
+export const { store_signup, store_signin, store_signout } = authSlice.actions; // list of reducer functions
 
 // Named export for the reducer function list itself
 export const authReducer = authSlice.reducer;

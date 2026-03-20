@@ -7,16 +7,16 @@ class AuthenticationService {
 
 	constructor () {
 		this.client
-			.setEndpoint (conf.endpoint_id)
-			.setProject (conf.project_id);
+			.setProject (conf.project_id)
+			.setEndpoint (conf.endpoint_id);
 			// .setKey (conf.api_key);
 
 		this.account = new Account (this.client);
 	}
 
-	async createAccount ({ name, email, password }) {
+	async createUser ({ name, email, password }) {
 		try {
-			user_account = await this.account.create (
+			const user_account = await this.account.create (
 				{
 					userId: ID.unique()
 					, email // equivalent to "email: email"
@@ -25,13 +25,7 @@ class AuthenticationService {
 				}
 			);
 
-			if (user_account) {
-				return this.login (
-					{ email, password }
-				);
-			} else {
-				throw new Error ("Account cannot be processed.");
-			}
+			return user_account;
 		} catch (error) {
 			throw error;
 		}
@@ -39,9 +33,17 @@ class AuthenticationService {
 
 	async login ({ email, password }) {
 		try {
-			return await this.account.createEmailPasswordSession (
+			await this.clearAllSessions();
+		} catch (error) {
+			throw error;
+		}
+
+		try {
+			const session = await this.account.createEmailPasswordSession (
 				{ email, password }
 			);
+			console.log ("session:", session);
+			return session;
 		} catch (error) {
 			throw error;
 		}
@@ -64,6 +66,29 @@ class AuthenticationService {
 		} catch (error) {
 			console.log ("[ERROR]: AuthenticationService : logout -", error);
 			throw error;
+		}
+	}
+
+	async clearAllSessions() {
+		try {
+			// 1. Get the current session ID
+			const currentSession = await this.account.get();
+			const currentSessionId = currentSession.$id;
+
+			// 2. List all sessions
+			const sessions = await this.account.listSessions();
+
+			// 3. Iterate and delete previous sessions
+			for (const session of sessions.sessions) {
+				if (session.$id !== currentSessionId) {
+					await this.account.deleteSession({ sessionId: session.$id });
+					//console.log(`Deleted session: ${session.$id}`);
+				}
+			}
+			//console.log('All previous sessions cleared successfully.');
+
+		} catch (error) {
+			console.error('Error clearing sessions:', error);
 		}
 	}
 }

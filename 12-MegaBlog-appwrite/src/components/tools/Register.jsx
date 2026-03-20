@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthenticationService from "../../lib/appwrite/AuthenticationService";
-import { login, register } from "../../store/authSlice";
+
 import { MyButton, MyInput, MyLogo } from "../atoms";
 import { useForm } from "react-hook-form";
+import { store_signin, store_signup } from "../../store/authSlice";
 
 export default function Register() {
 	const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Register() {
 				const user = await AuthenticationService.getCurrentUser ();
 
 				if (user) {
-					dispatch (login (user));
+					dispatch (store_signin (user));
 				}
 
 				navigate ("/");

@@ -1,28 +1,46 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MyLogo, MyButton } from "../atoms/";
-import { useEffect } from "react";
+import { AuthenticationService } from "../../services";
+import { store_signout } from "../../store/authSlice";
 
 export default function Header() {
 	const auth_stat = useSelector (state => (state.authReducer.status));
 	const navigate = useNavigate ();
+	const dispatch = useDispatch ();
 
 	const nav_items = [
 		{ name: "Home" , slug: "/" , active: true }
 		, { name: "About", slug: "/about", active: true }
-		, { name: "Blog", slug: "/blog", active: true }
 		, { name: "SignIn", slug: "/signin", active: !auth_stat }
 		, { name: "SignUp", slug: "/signup", active: !auth_stat }
 		, { name: "SignOut", slug: "/signout", active: auth_stat }
 		, { name: "Services", slug: "/services", active: true }
 		, { name: "Contact", slug: "/contact", active: true }
-		, { name: "All Posts", slug: "/all-posts", active: auth_stat }
+		, { name: "All Posts", slug: "/posts", active: auth_stat }
 		, { name: "Add Post", slug: "/add-post", active: auth_stat }
 	];
 
+	function visitAuthPage() {
+		navigate ("/auth");
+	}
+
+	function handleSignout () {
+		AuthenticationService.logout()
+			.then (() => {
+				dispatch (store_signout());
+			})
+			.catch ((error) => {
+				throw (error);
+			})
+			.finally (() => {
+				localStorage.clear ("cookieFallback");
+			});
+	}
+
 	return (
 <header>
-	<nav className="fixed top-0 bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+	<nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
 		<div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
 			<Link to="/" className="flex items-center">
 				<MyLogo
@@ -35,13 +53,10 @@ export default function Header() {
 			</Link>
 			<div className="flex items-center lg:order-2">
 				{
-					(auth_stat) ? (
-						<MyButton text="SignOut" action="signout" />
+					(!auth_stat) ? (
+						<MyButton onClick={ visitAuthPage }>Sign In</MyButton>
 					) : (
-						<>
-							<MyButton text="SignUp" action="signup" />
-							<MyButton text="SignIn" action="signin" />
-						</>
+						<MyButton onClick={ handleSignout }>Sign Out</MyButton>
 					)
 				}
 

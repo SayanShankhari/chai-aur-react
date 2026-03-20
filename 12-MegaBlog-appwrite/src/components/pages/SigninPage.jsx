@@ -1,7 +1,9 @@
-import SigninForm from "../forms/SigninForm";
+import { SigninForm } from "../forms";
 
 export default function SigninPage () {
-	<div className="py-8">
-		<SigninForm />
-	</div>
+	return (
+		<div className="py-8">
+			<SigninForm />
+		</div>
+	);
 }

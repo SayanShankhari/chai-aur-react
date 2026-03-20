@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,9 @@ import RealTimeEditor from "../tools/RealTimeEditor";
 import { DatabaseService } from "../../services";
 
 export default function PostForm () {
-	const { register, handleSubmit, watch, setValue, control, getValues } = useForm (
+
+	const { register, handleSubmit, watch, setValue, control, getValues } = useForm ();
+/*	const { register, handleSubmit, watch, setValue, control, getValues } = useForm (
 		{
 			defaultValues: {
 				title: post?.title || ""
@@ -64,9 +66,9 @@ export default function PostForm () {
 
 	const slugTransform = useCallback ((value) => {
 		if (value && typeof (value) === "string") {
-			/*const slug = value.toLowerCase().replace(/ /g, "-");
+			const slug = value.toLowerCase().replace(/ /g, "-");
 			setValue ("slug", slug);
-			return slug;*/
+			//return slug;
 
 			return value
 				.trim()
@@ -87,6 +89,10 @@ export default function PostForm () {
 
 		return (() => { subscription.unsubscribe(); })
 	}, [watch, slugTransform, setValue]);
+*/
+	function submit () {
+		
+	}
 
 	return (
 		<form

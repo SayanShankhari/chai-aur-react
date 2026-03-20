@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { login as signin} from "../../store/authSlice";
+
 import { MyButton, MyInput, MyLogo } from "../atoms"
 import { useDispatch } from "react-redux";
 import AuthService from "../../lib/appwrite/AuthenticationService";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { store_signin } from "../../store/authSlice";
 
 export default function Login () {
 	const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Login () {
 				const user_data = await AuthService.getCurrentUser();
 
 				if (user_data) {
-					dispatch (signin (user_data));
+					dispatch (store_signin (user_data));
 				}
 
 				navigate ("/");

@@ -1,10 +1,11 @@
 // https://www.blindtextgenerator.com/lorem-ipsum
 
-const content_lenth = 1000;
+const content_lenth = 100;
 
 const articles = [
 	{
 		title: "lorem ipsum"
+		, slug: "lorem-ipsum"
 		, content: String (
 `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 
@@ -18,6 +19,7 @@ Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdie
 		).substring (0, content_lenth)
 	}, {
 		title: "cicero"
+		, slug: "cicero"
 		, content: String (
 `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
@@ -31,6 +33,7 @@ Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil 
 		).substring (0, content_lenth)
 	}, {
 		title: "li europan lingues"
+		, slug: "li-europan-lingues"
 		, content: String (
 `Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
 
@@ -44,6 +47,7 @@ A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amic
 		).substring (0, content_lenth)
 	}, {
 		title: "far far away"
+		, slug: "far-far-away"
 		, content: String (
 `Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
 
@@ -57,6 +61,7 @@ The Big Oxmox advised her not to do so, because there were thousands of bad Comm
 		).substring (0, content_lenth)
 	}, {
 		title: "werther"
+		, slug: "werther"
 		, content: String (
 `A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
 
@@ -68,6 +73,7 @@ When, while the lovely valley teems with vapour around me, and the meridian sun 
 		).substring (0, content_lenth)
 	}, {
 		title: "kafka"
+		, slug: "kafka"
 		, content: String (
 `One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.
 
@@ -81,6 +87,7 @@ A collection of textile samples lay spread out on the table - Samsa was a travel
 		).substring (0, content_lenth)
 	}, {
 		title: "pangram"
+		, slug: "pangram"
 		, content: String (
 `The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.
 
