@@ -1,14 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";	// RTK
-
-const init_state = {
-	status: false
-	, user_data: null
-}
+import { AuthStateModel } from "../models/AuthStateModel";
 
 const authSlice = createSlice (	// slice: modular abstraction over reducers
 	{
 		name: "Auth"
-		, initialState: init_state
+		, initialState: AuthStateModel
 		, reducers: {	// reducers: state generator low level functions
 			store_signup: (state, action) => {
 				state.status = false;
@@ -30,7 +26,8 @@ const authSlice = createSlice (	// slice: modular abstraction over reducers
 export const { store_signup, store_signin, store_signout } = authSlice.actions; // list of reducer functions
 
 // Named export for the reducer function list itself
-export const authReducer = authSlice.reducer;
+//export const authReducer = authSlice.reducer;
+export default authSlice.reducer;
 
 // Default export for the entire slice (useful if you need other parts like selectors)
-export default authSlice;
+//export default authSlice;

@@ -1,7 +1,9 @@
 import { Client, Account, ID } from 'appwrite';
-import conf from "../../conf/conf";
+import conf from "../../config";
 
 class AuthenticationService {
+	instanceId = Math.random();
+
 	client = new Client();
 	account;
 
@@ -14,9 +16,9 @@ class AuthenticationService {
 		this.account = new Account (this.client);
 	}
 
-	async createUser ({ name, email, password }) {
+	async createUser ( { name, email, password } ) {
 		try {
-			const user_account = await this.account.create (
+			const user = await this.account.create (
 				{
 					userId: ID.unique()
 					, email // equivalent to "email: email"
@@ -25,46 +27,68 @@ class AuthenticationService {
 				}
 			);
 
-			return user_account;
+			if (!user) {
+				throw new Error ("Unable to create account!");
+			}
+
+			return user;
 		} catch (error) {
 			throw error;
 		}
 	}
 
-	async login ({ email, password }) {
-		try {
-			await this.clearAllSessions();
-		} catch (error) {
-			throw error;
-		}
-
+	async login ( { email, password } ) {
+		// await this.clearAllSessions();
+		// console.log (this.account);
 		try {
 			const session = await this.account.createEmailPasswordSession (
 				{ email, password }
 			);
-			console.log ("session:", session);
+
+			// console.log ("session:", session);
 			return session;
 		} catch (error) {
+			// If error is "creation of a session is prohibited when a session is active"
+			if (error.code === 401) { 
+				// Handle appropriately or logout first
+			}
+
 			throw error;
 		}
 	}
 
 	async getCurrentUser () {
 		try {
-			return await this.account.get();
+			const user = await this.account.get();
+			return user;
 		} catch (error) {
-			console.log ("[ERROR]: AuthenticationService : getCurrentUser -", error);
-		}
+			// Appwrite returns a 401 error code when no session exists
+			if (error.code === 401) {
+				return null;	// Silent failure: user is simply not logged in
+			}
 
-		return null;	// avoid unhandled (if-else) error
+			// Log other unexpected errors
+			console.error("[ERROR]: Auth-getCurrentUser - Unexpected error:", error);
+		}
 	}
 
-	async logout () {
+	async logout (session_id = "") {
 		try {
-			//await this.account.deleteSession({ sessionId: 'current' });
-			await this.account.deleteSessions();
+			const user = await this.getCurrentUser();
+
+			// await this.account.deleteSessions();
+
+			if (user) {
+				if (session_id) {
+					await this.account.deleteSession ({ sessionId: session_id });
+				} else {
+					await this.account.deleteSession ({ sessionId: 'current' });
+				}
+			} else {
+				throw new Error ("User not found to delete!");
+			}
 		} catch (error) {
-			console.log ("[ERROR]: AuthenticationService : logout -", error);
+			console.error ("[ERROR]: Auth-logout -", error?.message);
 			throw error;
 		}
 	}
@@ -88,9 +112,16 @@ class AuthenticationService {
 			//console.log('All previous sessions cleared successfully.');
 
 		} catch (error) {
-			console.error('Error clearing sessions:', error);
+			// Appwrite returns a 401 error code when no session exists
+			if (error.code === 401) {
+				return null;	// Silent failure: user is simply not logged in
+			}
+
+			// Log other unexpected errors
+			console.error("[ERROR]: Auth-getCurrentUser - Unexpected error:", error);
 		}
 	}
 }
 
+// export object as Singleton pattern, create once, use everywhere
 export default new AuthenticationService();

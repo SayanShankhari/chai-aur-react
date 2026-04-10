@@ -1,28 +1,44 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { AuthenticationService } from "../../services";
-import { store_signin, store_signup } from "../../store/authSlice";
 import { MyButton, MyInput, MyLogo } from "../atoms";
+import { useAuth } from "../../hooks";
 
 export default function SignupForm () {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const [error, setError] = useState ("");
 	const { register, handleSubmit, watch, formState:{ errors } } = useForm();
+	const { auth_signup } = useAuth();
 
 	async function handle_signup (form_data) {
 		setError ("");
+		localStorage.clear ();
+
+		try {
+			const user = auth_signup (form_data);
+
+			if (!user) {
+				throw new Error ("Unable to create user!");
+			}
+		} catch (error) {
+			setError (error.message);
+		} finally {
+			navigate ("/");
+		}
+/*
+
+		setError ("");
 		localStorage.clear();
+		//localStorage.removeItem (form_data.email);
+
 		// console.log (form_data.email, form_data.password);
 
 		try {
-			const user_data = await AuthenticationService.createUser (form_data);
+			const user = await AuthenticationService.createUser (form_data);
 			// console.log ("user data:", user_data);
 
-			if (user_data) {
- 				dispatch (store_signup (user_data));
+			if (user) {
+ 				dispatch (store_signup (user));
 
 				const session_data = await AuthenticationService.login ({ ...form_data });
 
@@ -30,19 +46,10 @@ export default function SignupForm () {
 				// console.log ("cookie:", document.cookie);
 
 				if (session_data) {
-					const user = await AuthenticationService.getCurrentUser();
+					const user_data = await AuthenticationService.getCurrentUser();
 					// console.log ("gotten user:", user);
 
-					const auth_store_data = {
-						"name": user.name
-						, "email": user.email
-						, "userId": user.$id
-						, "session": session_data.$id
-					};
-
-					// console.log (auth_store_data);
-
-					dispatch (store_signin (auth_store_data));
+					dispatch (store_signin (user_data));
 				}
 
 				navigate ("/");
@@ -50,6 +57,7 @@ export default function SignupForm () {
 		} catch (error) {
 			setError (error.message);
 		}
+*/
 	}
 
 	return (

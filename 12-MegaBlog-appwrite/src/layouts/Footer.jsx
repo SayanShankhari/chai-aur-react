@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MyLogo } from "../atoms";
+import { MyLogo } from "../components/atoms";
 
 export default function Footer() {
 	return (

@@ -1,41 +1,43 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { MyLogo, MyButton } from "../atoms/";
-import { AuthenticationService } from "../../services";
-import { store_signout } from "../../store/authSlice";
+import { useSelector } from "react-redux";
+import { MyLogo, MyButton } from "../components/atoms/";
+import { useAuth } from "../hooks";
 
 export default function Header() {
-	const auth_stat = useSelector (state => (state.authReducer.status));
+	const auth_stat = useSelector (state => (state.auth.status));
 	const navigate = useNavigate ();
-	const dispatch = useDispatch ();
+	const { auth_signout } = useAuth();
 
 	const nav_items = [
 		{ name: "Home" , slug: "/" , active: true }
 		, { name: "About", slug: "/about", active: true }
-		, { name: "SignIn", slug: "/signin", active: !auth_stat }
-		, { name: "SignUp", slug: "/signup", active: !auth_stat }
-		, { name: "SignOut", slug: "/signout", active: auth_stat }
 		, { name: "Services", slug: "/services", active: true }
 		, { name: "Contact", slug: "/contact", active: true }
-		, { name: "All Posts", slug: "/posts", active: auth_stat }
+		, { name: "All Posts", slug: "/posts", active: true }
 		, { name: "Add Post", slug: "/add-post", active: auth_stat }
+		, { name: "SignIn", slug: "/signin", active: !auth_stat }
+		// , { name: "SignUp", slug: "/signup", active: !auth_stat }	// enterring only with signin route
+		, { name: "SignOut", slug: "/signout", active: auth_stat }
 	];
 
-	function visitAuthPage() {
-		navigate ("/auth");
+	function visitAuthPage () {
+		navigate ("/signin");
 	}
 
-	function handleSignout () {
-		AuthenticationService.logout()
-			.then (() => {
-				dispatch (store_signout());
-			})
-			.catch ((error) => {
-				throw (error);
-			})
-			.finally (() => {
-				localStorage.clear ("cookieFallback");
-			});
+	async function handleSignout () {
+		await auth_signout ();
+
+		// TODO: accept this style
+		// AuthenticationService.logout()
+		// 	.then (() => {
+		// 		dispatch (store_signout());
+		// 	})
+		// 	.catch ((error) => {
+		// 		throw (error);
+		// 	})
+		// 	.finally (() => {
+		// 		localStorage.clear ("cookieFallback");
+		// 	});
 	}
 
 	return (

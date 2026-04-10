@@ -3,27 +3,23 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MyButton, MyInput, MySelect } from "../atoms";
-import RealTimeEditor from "../tools/RealTimeEditor";
+import { RealTimeEditor } from "../organisms";
 import { DatabaseService } from "../../services";
 
-export default function PostForm () {
-
-	const { register, handleSubmit, watch, setValue, control, getValues } = useForm ();
-/*	const { register, handleSubmit, watch, setValue, control, getValues } = useForm (
+export default function PostForm ({ post }) {
+	const { register, handleSubmit, watch, setValue, control, getValues } = useForm (
 		{
 			defaultValues: {
 				title: post?.title || ""
 				, slug: post?.slug || ""
 				, content: post?.content || ""
 				, status: post?.status || "active"
-
-
 			}
 		}
 	);
 
 	const navigate = useNavigate ();
-	const user_data = useSelector (state => state.user.user_data);
+	const user_data = useSelector (state => state.user_data);
 
 	async function submit (data) {
 		if (post) {
@@ -77,7 +73,7 @@ export default function PostForm () {
 				.replace(/\s/g, "-");
 		}
 
-		return ""; // else part
+		return ""; // else part, for all other cases
 	}, []);
 
 	useEffect (() => {
@@ -89,9 +85,9 @@ export default function PostForm () {
 
 		return (() => { subscription.unsubscribe(); })
 	}, [watch, slugTransform, setValue]);
-*/
+
 	function submit () {
-		
+
 	}
 
 	return (
@@ -121,12 +117,12 @@ export default function PostForm () {
 						setValue ("slug", slugTransform (event.currentTarget.value), { shouldValidate: true });
 					}}
 				/>
-				<RealTimeEditor
+				{/* <RealTimeEditor
 					label="Content:"
 					name="content"
 					control={control}
 					default_value={ getValues ("content") }
-				/>
+				/> */}
 			</div>
 			<div className="w-1/3 px-2">
 				<MyInput

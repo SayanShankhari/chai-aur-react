@@ -1,14 +1,13 @@
 import { useRef, useState } from "react";
 import { MyButton, MyInput, MyLogo } from "../atoms"
 import { useDispatch } from "react-redux";
-import { AuthenticationService } from "../../services";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { store_signin } from "../../store/authSlice";
+import { useAuth } from "../../hooks";
 
 export default function SigninForm () {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	//const dispatch = useDispatch();
 	const { register, handleSubmit, watch, formState:{ errors } } = useForm (
 		{
 			defaultValues: {
@@ -19,30 +18,21 @@ export default function SigninForm () {
 	);
 	const buttonReference = useRef (null);
 	const [error, setError] = useState ("");
+	const { auth_signin } = useAuth();
 
 	async function handleSignin (form_data) {
 		//event.preventDefault();
 		setError ("");
 		// console.log (form_data);
 
-		try {
-			const session_data = await AuthenticationService.login (form_data);
-			// console.log (session_data);
+		const user = await auth_signin (form_data);	// handover to hook
 
-			if (session_data) {
-				const user_data = await AuthenticationService.getCurrentUser();
-
-				if (user_data) {
-					dispatch (store_signin (user_data));
-				} else {
-					throw new Error ("Unable to get accout info!");
-				}
-
-				navigate ("/");
-			}
-		} catch (error) {
-			setError (error.message);
+		if (user) {
+			navigate ("/");
+		} else {
+			setError ("Unable to login at the moment!");
 		}
+		
 	}
 
 	return (

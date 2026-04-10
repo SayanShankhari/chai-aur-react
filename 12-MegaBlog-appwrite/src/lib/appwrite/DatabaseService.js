@@ -1,4 +1,4 @@
-import conf from "../../conf/conf";
+import conf from "../../config";
 import { Client, ID, Databases, Storage, Query, TablesDB, Role, Permission } from "appwrite";
 
 class DatabaseService {

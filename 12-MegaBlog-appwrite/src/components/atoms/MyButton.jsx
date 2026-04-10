@@ -1,8 +1,3 @@
-import { useDispatch } from "react-redux";
-import { store_signup, store_signin, store_signout } from "../../store/authSlice";
-import { useEffect } from "react";
-import { AuthenticationService } from "../../services";
-
 export default function MyButton (
 	{
 		type="button"
@@ -19,65 +14,7 @@ export default function MyButton (
 		, signin: "text-white bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
 		, signout: "text-white bg-warning box-border border border-transparent hover:bg-warning-strong focus:ring-4 focus:ring-warning-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
 	}
-/*
-	const action_handlers = {
-		"default": ""
-		, "signup": handle_register
-		, "signin": handle_login
-		, "signout": handle_logout
-	}
 
-	const dispath = useDispatch();
-
-	function handle_register () {
-		AuthenticationService.register()
-			.then (() => {
-				dispath (store_signup);
-			})
-			.catch ((error) => {
-				throw (error);
-			})
-			.finally ();
-	}
-
-	function handle_login () {
-		AuthenticationService.login()
-			.then (() => {
-				dispath (store_signin);
-			})
-			.catch ((error) => {
-				throw (error);
-			})
-			.finally ();
-	}
-
-	function handle_logout () {
-		AuthenticationService.logout()
-			.then (() => {
-				dispath (store_signout);
-			})
-			.catch ((error) => {
-				throw (error);
-			})
-			.finally ();
-	}
-
-	function handle_action() {
-		console.log ("reached here...", { text });
-		action_handlers [action];
-	}
-
-	useEffect(() => {
-		console.log ("Signin Page: received action: ", action);
-		console.log ("Signin Page: action style:", action);
-		//console.log ("action handlers:", action_handlers);
-	}, []);
-
-
-	useEffect (() => {
-		console.log({...props});
-	}, []);
-*/
 	return (
 		<button
 			type={ type }
@@ -89,7 +26,3 @@ export default function MyButton (
 		</button>
 	);
 }
-
-/*
-onSubmit={ handle_action }
-*/
