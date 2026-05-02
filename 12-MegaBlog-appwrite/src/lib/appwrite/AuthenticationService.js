@@ -1,19 +1,19 @@
-import { Client, Account, ID } from 'appwrite';
-import conf from "../../config";
+import { Account, ID } from 'appwrite';
+import appwriteClient from './client';
 
 class AuthenticationService {
 	instanceId = Math.random();
 
-	client = new Client();
+	//client = new Client();
 	account;
 
-	constructor () {
-		this.client
-			.setProject (conf.project_id)
-			.setEndpoint (conf.endpoint_id);
-			// .setKey (conf.api_key);
+	constructor (client) {
+		// this.client
+		// 	.setProject (conf.project_id)
+		// 	.setEndpoint (conf.endpoint_id);
+		// 	// .setKey (conf.api_key);
 
-		this.account = new Account (this.client);
+		this.account = new Account (client);
 	}
 
 	async createUser ( { name, email, password } ) {
@@ -124,4 +124,4 @@ class AuthenticationService {
 }
 
 // export object as Singleton pattern, create once, use everywhere
-export default new AuthenticationService();
+export default new AuthenticationService (appwriteClient);

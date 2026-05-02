@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MyLogo } from "../components/atoms";
 
-export default function Footer() {
+export default function FooterLayout () {
 	return (
 <footer className="bottom-0 bg-neutral-primary-soft mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
 	<div className="md:flex md:justify-between">

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { MyLogo, MyButton } from "../components/atoms/";
+import { MyLogo, MyButton } from "../components/atoms";
 import { useAuth } from "../hooks";
 
-export default function Header() {
+export default function HeaderLayout () {
 	const auth_stat = useSelector (state => (state.auth.status));
 	const navigate = useNavigate ();
 	const { auth_signout } = useAuth();
@@ -13,7 +13,7 @@ export default function Header() {
 		, { name: "About", slug: "/about", active: true }
 		, { name: "Services", slug: "/services", active: true }
 		, { name: "Contact", slug: "/contact", active: true }
-		, { name: "All Posts", slug: "/posts", active: true }
+		, { name: "View Posts", slug: "/posts", active: true }
 		, { name: "Add Post", slug: "/add-post", active: auth_stat }
 		, { name: "SignIn", slug: "/signin", active: !auth_stat }
 		// , { name: "SignUp", slug: "/signup", active: !auth_stat }	// enterring only with signin route

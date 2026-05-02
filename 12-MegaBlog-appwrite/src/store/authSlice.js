@@ -3,7 +3,7 @@ import { AuthStateModel } from "../models/AuthStateModel";
 
 const authSlice = createSlice (	// slice: modular abstraction over reducers
 	{
-		name: "Auth"
+		name: "auth"	// namespace for the actions (like auth/store_signup), not the state name
 		, initialState: AuthStateModel
 		, reducers: {	// reducers: state generator low level functions
 			store_signup: (state, action) => {

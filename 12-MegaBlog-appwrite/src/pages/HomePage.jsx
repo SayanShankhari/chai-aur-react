@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useNavigation, useLocation } from "react-router-dom";
-import { Header, Main, Footer, Container } from "../layouts";
+import { HeaderLayout, MainLayout, FooterLayout, LoaderLayout } from "../layouts";
 import { DatabaseService } from "../services";
-import articles from "../utils/articles";
-import { Loader } from "../layouts";
 
 export default function HomePage() {
 	//const [posts, setPosts] = useState (articles);
@@ -33,14 +31,14 @@ export default function HomePage() {
 
 	}, []);
 
-	if (navigation.state === "loading") return <Loader />;
+	if (navigation.state === "loading") return <LoaderLayout />;
 
 	// just to test loading
 	// if (loading) return <Loader />;
 
 	return (
 		<>
-			<Header />
+			<HeaderLayout />
 			{
 				(location.pathname === "/") ? (
 					(!auth_stat) ? (
@@ -58,8 +56,8 @@ export default function HomePage() {
 					)
 				) : <></>
 			}
-			<Main />
-			<Footer />
+			<MainLayout />
+			<FooterLayout />
 		</>
 	)
 }

@@ -1,13 +1,13 @@
 import { DatabaseService } from "../../services";
 import { Link } from "react-router-dom";
 
-//export default function MyCard ({ $id, title, image_id }) {
-export default function MyCard ({ slug, title, content, image_id }) {
+//export default function MyCard ({ $id, title, banner }) {
+export default function MyCard ({ slug, title, content, banner }) {
 	return (
 		<div className="w-80 bg-gray-800 rounded-xl p-4 m-2 flex flex-col border-solid border-1">
 			<header className="flex flex-row justify-between mb-4">
 				<img
-					src={ image_id }
+					src={ banner }
 					alt="image preview"
 					title="Click to read more"
 					className="w-10 h-10 rounded-full justify-center align-middle"
@@ -20,12 +20,12 @@ export default function MyCard ({ slug, title, content, image_id }) {
 				<Link to={`/post/${slug}`}>
 					<div className="bg-gray-500 rounded-xl">
 						{/* <img
-							src={ DatabaseService.getFilePreview (image_id) }
+							src={ DatabaseService.getFilePreview (banner) }
 							alt="image preview"
 							className="rounded-xl"
 						/> */}
 						<img
-							src={ image_id }
+							src={ banner }
 							alt="image preview"
 							className="w-80 h-45 rounded justify-center mb-4"
 						/>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container } from "../layouts/Container";
+import { ContainerLayout } from "../layouts";
 import { PostForm } from "../tools/PostForm";
 import { DatabaseService } from "../../services";
 
@@ -25,9 +25,9 @@ export default function EditPost() {
 
 	return post ? (
 		<div className="py-8">
-			<Container>
+			<ContainerLayout>
 				<PostForm post={ post } />
-			</Container>
+			</ContainerLayout>
 		</div>
 	) : null;
 }

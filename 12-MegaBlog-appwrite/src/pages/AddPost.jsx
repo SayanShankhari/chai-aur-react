@@ -1,12 +1,12 @@
-import { Container } from "../layouts";
+import { ContainerLayout } from "../layouts";
 import { PostForm } from "../components/forms";
 
 export default function AddPost() {
 	return (
 		<div className="py-8">
-			<Container>
+			<ContainerLayout>
 				<PostForm />
-			</Container>
+			</ContainerLayout>
 		</div>
 	);
 }

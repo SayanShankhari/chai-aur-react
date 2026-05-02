@@ -1,30 +1,25 @@
 import conf from "../../config";
-import { Client, ID, Databases, Storage, Query, TablesDB, Role, Permission } from "appwrite";
+import { ID, Databases, Storage, Query, TablesDB, Role, Permission } from "appwrite";
+import appwriteClient from "./client";
 
 class DatabaseService {
-	client;
+	//client;
 	databases;
 	storage;
 	tables;
 	row_id;
 
-	constructor () {
-		this.client = new Client();
-
-		this.client
-			.setEndpoint (conf.endpoint_id)
-			.setProject (conf.project_id);
+	constructor (client) {
+		// use the globally created client
+		//this.client = appwriteClient;
 
 		//this.databases = new Databases (this.client);
-		this.tables = new TablesDB (this.client);
+		this.tables = new TablesDB (client);	// calling it directly
 
 		// this.bucket = new Bucket (this.client);
-		this.storage = new Storage (this.client);
-
-		this.row_id = ID.unique();
 	}
 
-	async createPost ({ title, content, image_id, status, user_id }) {
+	async create ({ title, content, image_id, status, user_id }) {
 		try {
 			// POST /tablesdb/{databaseId}/tables/{tableId}/rows
 			return await this.tables.createRow (
@@ -68,7 +63,7 @@ class DatabaseService {
 		});
 	}
 
-	async getPost ({ title, user_id }) {
+	async select ({ title, user_id }) {
 		try {
 			// GET /tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}
 			return await this.tables.getRow (
@@ -127,7 +122,7 @@ class DatabaseService {
 		}
 	}
 
-	async updatePost (slug, { title, content, image_id, status, user_id }) {
+	async update (slug, { title, content, image_id, status, user_id }) {
 		try {
 			// PATCH /tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}
 			return await this.tables.updateRow (
@@ -155,7 +150,7 @@ class DatabaseService {
 		}
 	}
 
-	async deletePost ({ title, user_id }) {
+	async delete ({ title, user_id }) {
 		try {
 			// DELETE /tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}
 			await this.tables.deleteRow (
@@ -178,7 +173,7 @@ class DatabaseService {
 		}
 	}
 
-	async deletePostByRowId (row_id) {
+	async deleteByRowId (row_id) {
 		try {
 			// DELETE /tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}
 			await this.tables.deleteRow (
@@ -195,7 +190,7 @@ class DatabaseService {
 		}
 	}
 
-	async deleteAllPosts () {
+	async deleteAll () {
 		const response = this.listAllPosts();
 
 		response
@@ -224,45 +219,7 @@ class DatabaseService {
 */
 	}
 
-	async uploadFile (file) {
-		try {
-			return await this.storage.createFile (
-				{
-					bucketId: conf.bucket_id
-					, fileId: ID.unique()
-					, file: file
-					//, file: document.getElementById('uploader').files[0]
-				}
-			);
-		} catch (error) {
-			throw error;
-			return false;
-		}
-	}
-
-	async deleteFile (file_id) {
-		try {
-			await this.storage.deleteFile (
-				{
-					bucketId: conf.storage_id
-					, fileId: file_id
-				}
-			);
-
-			return true;
-		} catch (error) {
-			return false;
-		}
-	}
-
-	getFilePreview (file_id) {
-		return this.storage.getFilePreview (
-			{
-				bucketId: conf.bucket_id
-				, fileId: file_id
-			}
-		);
-	}
+	
 
 /*
 PUT /tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}

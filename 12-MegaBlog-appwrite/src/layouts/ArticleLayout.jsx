@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { DatabaseService } from "../../services";
-import { Container } from "../layouts";
+import { ContainerLayout } from "./";
 import { MyButton } from "../atoms/MyButton";
 import { useSelector } from "react-redux";
+import { ArticleModel } from "../models";
 
-export default function PostPage() {
+function ArticleLayout ( { title, banner, author, content, ...rest }, children ) {
 	const [post, setPost] = useState (null);
-	const { slug } = useParams();
-	const navigate = useNavigate();
-
-	const user_data = useSelector ((state) => (state.auth.user_data));
-
-	const is_author = post && (user_data ? (post.useId == user_data.$id) : false);
-
+	const user = useSelector ((state) => (state.auth.user_data?.id));
+	const is_author = author && (user == author);
+/*
 	useEffect (() => {
 		if (slug) {
 			DatabaseService.getPost (slug)
@@ -40,10 +37,10 @@ export default function PostPage() {
 				}
 			});
 	}
-
+*/
 	return post ? (
 		<div className="py-8">
-			<Container>
+			<ContainerLayout>
 				<div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
 					<img
 						src={ DatabaseService.getFilePreview (post.image) }
@@ -57,14 +54,14 @@ export default function PostPage() {
 									to={`/edit-post/${post.$id}`}
 								>
 									<MyButton
-										style="bg-green-500"
+										bgcolor="bg-green-500"
 										className="mr-3"
 									>
 										Edit
 									</MyButton>
 								</Link>
 								<MyButton
-									style="bg-red-500"
+									bgcolor="bg-red-500"
 									onClick={delete_post}
 								>
 									Delete									
@@ -81,7 +78,9 @@ export default function PostPage() {
 				<div className="browser-css">
 					{ parse (post.content) }
 				</div>
-			</Container>
+			</ContainerLayout>
 		</div>
 	) : (null);
 }
+
+export default ArticleLayout;

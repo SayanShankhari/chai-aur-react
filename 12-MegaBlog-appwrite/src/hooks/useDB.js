@@ -1,6 +1,7 @@
 import { useCallback } from "react";
+import { PostModel } from "../models";
 
-export default function useDB () {
+export default function useDB (post = PostModel) {
 	// const [value, setValue] = useState(() => Cookies.get (name));
 
 	// const updateCookie = useCallback (

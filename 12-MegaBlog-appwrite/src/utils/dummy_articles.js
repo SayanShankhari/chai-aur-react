@@ -1,11 +1,28 @@
 // https://www.blindtextgenerator.com/lorem-ipsum
 
+/*
+
+PostModel: {
+	id: ""
+	, title: ""		// Blog Title
+	, slug: ""		// blog-title-sub-url
+	, content: ``	// big html
+	, banner: ""	// banner image storage id
+	, author: ""	// author
+	, createdAt: ""
+	, updatedAt: ""
+	, archived: ""	// archived true/false
+}
+
+*/
+
 const content_lenth = 100;
 
-const articles = [
+const dummy_articles = [
 	{
-		title: "lorem ipsum"
+		title: "Lorem Ipsum"
 		, slug: "lorem-ipsum"
+		, author: "Admin"
 		, content: String (
 `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 
@@ -18,8 +35,9 @@ Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. A
 Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.`
 		).substring (0, content_lenth)
 	}, {
-		title: "cicero"
+		title: "Cicero"
 		, slug: "cicero"
+		, author: "Admin"
 		, content: String (
 `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 
@@ -32,8 +50,9 @@ Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit la
 Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.`
 		).substring (0, content_lenth)
 	}, {
-		title: "li europan lingues"
+		title: "Li Europan Lingues"
 		, slug: "li-europan-lingues"
+		, author: "Admin"
 		, content: String (
 `Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular.
 
@@ -46,8 +65,9 @@ Li nov lingua franca va esser plu simplic e regulari quam li existent Europan li
 A un Angleso it va semblar un simplificat Angles, quam un skeptic Cambridge amico dit me que Occidental es. Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li.`
 		).substring (0, content_lenth)
 	}, {
-		title: "far far away"
+		title: "Far Far Away"
 		, slug: "far-far-away"
+		, author: "Admin"
 		, content: String (
 `Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
 
@@ -60,8 +80,9 @@ Even the all-powerful Pointing has no control about the blind texts it is an alm
 The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksg`
 		).substring (0, content_lenth)
 	}, {
-		title: "werther"
+		title: "Werther"
 		, slug: "werther"
+		, author: "Admin"
 		, content: String (
 `A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
 
@@ -72,8 +93,9 @@ I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranqu
 When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel t`
 		).substring (0, content_lenth)
 	}, {
-		title: "kafka"
+		title: "Kafka"
 		, slug: "kafka"
+		, author: "Admin"
 		, content: String (
 `One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.
 
@@ -86,8 +108,9 @@ The bedding was hardly able to cover it and seemed ready to slide off any moment
 A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards t`
 		).substring (0, content_lenth)
 	}, {
-		title: "pangram"
+		title: "Pangram"
 		, slug: "pangram"
+		, author: "Admin"
 		, content: String (
 `The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs.
 
@@ -102,4 +125,4 @@ A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box.
 	}
 ];
 
-export default articles;
+export default dummy_articles;

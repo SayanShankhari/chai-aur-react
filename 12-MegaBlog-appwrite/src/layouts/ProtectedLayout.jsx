@@ -12,7 +12,7 @@ import { useNavigate, Navigate, useNavigation,Outlet } from "react-router-dom";
 
 */
 
-export default function Protected () {
+export default function ProtectedLayout () {
 	const navigate = useNavigate ();
 	const navigation = useNavigation ();
 	const [loading, setLoading] = useState (true);

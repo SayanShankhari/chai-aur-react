@@ -1,7 +1,7 @@
-export { default as Loader } from "./Loader";
-export { default as Container } from "./Container";
-export { default as Protected } from "./Protected";
+export { default as LoaderLayout } from "./LoaderLayout";
+export { default as ContainerLayout } from "./ContainerLayout.jsx";
+export { default as ProtectedLayout } from "./ProtectedLayout";
 
-export { default as Header } from "./Header";
-export { default as Main } from "./Main";
-export { default as Footer } from "./Footer";
+export { default as HeaderLayout } from "./HeaderLayout.jsx";
+export { default as MainLayout } from "./MainLayout";
+export { default as FooterLayout } from "./FooterLayout.jsx";
